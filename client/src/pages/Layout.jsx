@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { assets } from "../assets/assets";
 import { Menu, X } from "lucide-react";
@@ -9,6 +9,20 @@ const Layout = () => {
   const navigate = useNavigate();
   const [sidebar, setSidebar] = useState(false);
   const { user } = useUser();
+  const sidebarRef = useRef(null);
+
+  useEffect(() => {
+    if (!sidebar) return;
+    const handleClickOutside = (event) => {
+      if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
+        setSidebar(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [sidebar]);
 
   return user ? (
     <div className="flex flex-col items-start justify-start h-screen">
@@ -31,8 +45,10 @@ const Layout = () => {
           />
         )}
       </nav>
-      <div className="flex-1 w-full flex h-[calc(100vh-64px)]">
-        <SideBar sidebar={sidebar} setSidebar={setSidebar} />
+      <div className="flex-1 w-full  flex h-[calc(100vh-64px)] ">
+        <div ref={sidebarRef}>
+          <SideBar sidebar={sidebar} setSidebar={setSidebar} />
+        </div>
         <div className="flex-1 bg-[#f4f7fb]">
           <Outlet />
         </div>
