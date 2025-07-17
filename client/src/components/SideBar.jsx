@@ -28,9 +28,11 @@ const SideBar = ({ sidebar, setSidebar }) => {
   const { user } = useUser();
   const { signOut, openUserProfile } = useClerk();
 
+  // w-60 bg-white border-r border-gray-200 flex flex-col justify-between items-center max-sm:absolute top-14 bottom-0 z-10  max-sm:-translate-x-full transition-all duration-300 ease-in-out
+
   return (
     <div
-      className={`w-60 bg-white border-r z-50 border-gray-200 flex flex-col justify-between items-center max-sm:absolute top-14 bottom-0 ${
+      className={`w-60 bg-white border-r md:h-full h-screen  border-gray-200 flex flex-col justify-between items-center max-sm:absolute top-14 bottom-0 z-20 ${
         sidebar ? "translate-x-0" : "max-sm:-translate-x-full"
       } transition-all duration-300 ease-in-out`}
     >
@@ -67,7 +69,7 @@ const SideBar = ({ sidebar, setSidebar }) => {
         </div>
       </div>
 
-      <div className="w-full border-t border-gray-200 p-4 px-7 flex items-center justify-between">
+      <div className="w-full   border-t border-gray-200 p-4 px-7 flex items-center justify-between">
         <div
           onClick={openUserProfile}
           className="flex gap-2 items-center cursor-pointer"
