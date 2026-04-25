@@ -7,8 +7,8 @@ import fs from "fs";
 import pdf from "pdf-parse/lib/pdf-parse.js";
 
 const AI = new OpenAI({
-  apiKey: process.env.GEMINI_API_KEY,
-  baseURL: "https://generativelanguage.googleapis.com/v1beta/openai/",
+  apiKey: process.env.GROQ_API_KEY,
+  baseURL: "https://api.groq.com/openai/v1",
 });
 
 export const generateArticle = async (req, res) => {
@@ -26,7 +26,7 @@ export const generateArticle = async (req, res) => {
     }
 
     const response = await AI.chat.completions.create({
-      model: "gemini-2.0-flash",
+      model: "llama-3.1-8b-instant",
       messages: [
         {
           role: "user",
@@ -71,7 +71,7 @@ export const generateBlogTitle = async (req, res) => {
     }
 
     const response = await AI.chat.completions.create({
-      model: "gemini-2.0-flash",
+      model: "llama-3.1-8b-instant",
       messages: [
         {
           role: "user",
@@ -233,7 +233,7 @@ export const resumeReview = async (req, res) => {
     const prompt = `Review the following resume and provide constructive feedback on its strengths, weeknesses, and areas for improvement. Resume Content: \n\n${pdfdata.text}`;
 
     const response = await AI.chat.completions.create({
-      model: "gemini-2.0-flash",
+      model: "llama-3.1-8b-instant",
       messages: [
         {
           role: "user",
